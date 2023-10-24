@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d5f79a9cc609b4fba8c3b464bc4d2d, type: 3}
+  m_Name: RecipeSaltedWater
+  m_EditorClassIdentifier: 
+  craftableItem: {fileID: 11400000, guid: 08490190bb060434ab1b10a554f3f7d1, type: 2}
+  requiredItems:
+  - {fileID: 11400000, guid: 9317e051611f6a24a96dfcb27f1eba02, type: 2}
+  - {fileID: 11400000, guid: 7af447cfbbf289a48ab92b04263db6dc, type: 2}
+  requiredQuantities: 

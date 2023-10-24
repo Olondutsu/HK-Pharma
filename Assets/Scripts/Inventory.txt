@@ -1,0 +1,900 @@
+// using System.Collections.Generic;
+// using System;
+// using UnityEngine;
+// using System.Linq;
+// using System.IO.Compression;
+
+// public class Inventory : MonoBehaviour
+// {
+	
+// 	[Header("References")]
+		
+// 	[SerializeField]
+// 	private List<ItemInContainer> content = new List<ItemInContainer>();
+
+// 	public static Inventory instance;
+
+// 	public RecipeData[] recipeData;
+
+//     [SerializeField]
+//     private ContainerStats container;
+
+// 	[Header("Variables")]
+// 	const int InventorySize = 24;
+
+//     public bool itemAdded = false;
+        
+// 	private void Awake()
+// 	{
+// 		instance = this;
+//         container = GetComponent<ContainerStats>();
+// 	}
+		
+// 	private void Start()
+// 	{
+// 		SearchForRecipesInInventory();
+// 	}
+			
+// 	void Update()
+// 	{
+// 		SearchForRecipesInInventory();
+// 	}
+
+// 	public void AddItem(ItemData item, int quantity = 1)
+// 	{
+// 		// Définition des containerStats & itemInContainer (requête Linq) si il y a une quantité int de 1
+// 		ItemInContainer[] itemInContainer = content.Where(elem => elem.itemData == item).ToArray();
+// 		ContainerStats containerStats = transform.GetComponent<ContainerStats>();
+
+// 		bool itemAdded = false;
+
+// 		// Si cet il y a au moins un item dans le container et que c'est stackable
+// 		if (itemInContainer.Length > 0 && item.stackable)
+// 		{
+// 			for (int i = 0; i < itemInContainer.Length; i++)
+// 			{
+// 				if (itemInContainer[i].count < container.maxQuantity)
+// 				{
+// 					if (itemInContainer[i].count < container.currentQuantity)
+// 					{
+// 						// Pour chaque item  i dans la liste, si le count est inférieur a la quantité maximum et si le count est inférieur a la current quantity du container
+// 						itemInContainer[i].count += quantity;
+// 						Debug.Log("Ajout Ton script perso pour vérifier si c'est bien la current quantity");
+// 						itemAdded = true;
+// 						break;
+// 					}
+// 				}
+// 			}
+// 		}
+// 		else // sinon...
+// 		{
+// 			// l'ajouter...
+// 			Debug.Log("Ajout Si l'Item n'est pas Stack");
+// 			content.Add(
+// 				new ItemInContainer
+// 				{
+// 					itemData = item,
+// 					count = quantity
+// 				}
+// 			);
+// 		}
+// 		SearchForRecipesInInventory();
+// 	}
+// 	//Staut Quo
+// 	// public void AddItem(ItemData item, int quantity = 1)
+// 	// {
+// 	// 	// Définition des containerStats & itemInContainer (requête Linq) si il y a une quantité int de 1
+// 	// 	ItemInContainer[] itemInContainer = content.Where(elem => elem.itemData == item).ToArray();
+// 	// 	ContainerStats containerStats = transform.GetComponent<ContainerStats>();
+
+// 	// 	bool itemAdded = false;
+
+// 	// 	// Si cet il y a au moins un item dans le container et que c'est stackable
+// 	// 	if (itemInContainer.Length > 0 && item.stackable)
+// 	// 	{
+// 	// 		for (int i = 0; i < itemInContainer.Length; i++)
+// 	// 		{
+// 	// 			if (itemInContainer[i].count < container.maxQuantity)
+// 	// 			{
+// 	// 				if (itemInContainer[i].count < container.currentQuantity)
+// 	// 				{
+// 	// 					// Pour chaque item  i dans la liste, si le count est inférieur a la quantité maximum et si le count est inférieur a la currentquantity du container
+// 	// 					itemInContainer[i].count += quantity;
+// 	// 					Debug.Log("Ajout Ton script perso pour vérifier si c'est bien la current quantity");
+// 	// 					itemAdded = true;
+// 	// 					break;
+// 	// 				}
+// 	// 			}
+// 	// 		}
+// 	// 	}
+// 	// 	else // sinon...
+// 	// 	{
+// 	// 		// l'ajouter...
+// 	// 		Debug.Log("Ajout Si l'Item n'est pas Stack");
+// 	// 		content.Add(
+// 	// 			new ItemInContainer
+// 	// 			{
+// 	// 				itemData = item,
+// 	// 				count = quantity
+// 	// 			}
+// 	// 		);
+// 	// 	}
+// 	// 	SearchForRecipesInInventory();
+// 	// }
+
+// 	public void RemoveItem(ItemData item, int quantity = 1)
+// 	{
+// 		ItemInContainer itemInContainer = content.Where(elem => elem.itemData == item).FirstOrDefault();
+
+// 		if (itemInContainer != null && itemInContainer.count > quantity)
+// 		{
+// 			itemInContainer.count -= quantity;
+// 		}
+// 		else
+// 		{
+// 			content.Remove(itemInContainer);
+// 		}
+// 		SearchForRecipesInInventory();
+// 	}
+
+// 	public List<ItemInContainer> GetContent() // Creation d'une liste et recuperationd u content
+// 	{
+// 		return content; // renvoie tout le contenu
+// 	}
+		
+// 	public void RefreshContent()
+// 	{
+			
+// 	}
+
+// 	public bool IsFull()
+// 	{
+// 		return InventorySize == content.Count;
+// 	}
+ 		
+// 	// bool AreRequiredItemsAvailable(ItemData[] requiredItems)
+// 	// {
+// 	// 	List<ItemData> requiredItemsList = requiredItems.ToList(); // Convertissez en liste pour une comparaison plus facile
+		
+// 	// 	// Vérifiez si tous les éléments requis sont disponibles dans content
+// 	// 	foreach (ItemInContainer itemInContainer in content)
+// 	// 	{
+// 	// 		if (requiredItemsList.Contains(itemInContainer.itemData))
+// 	// 		{
+// 	// 			//Pour chaque Item dans le content crée plus haut IteminContainer si la liste d'items requise contient unobjet de la liste inContainer
+// 	// 			requiredItemsList.Remove(itemInContainer.itemData); // Retirez l'élément requis de la liste temporaire
+// 	// 		}
+// 	// 	}
+// 	// 	// Si la liste temporaire est vide, cela signifie que tous les éléments requis sont disponibles
+// 	// 	return requiredItemsList.Count == 0;
+// 	// }
+
+// 	bool AreRequiredItemsAvailable(ItemData[] requiredItems, out List<IngredientInfo> usedIngredients)
+// {
+//     usedIngredients = new List<IngredientInfo>();
+
+//     foreach (ItemData requiredItem in requiredItems)
+//     {
+//         ItemInContainer itemInContainer = content.FirstOrDefault(elem => elem.itemData == requiredItem);
+//         if (itemInContainer != null && itemInContainer.count > 0)
+//         {
+// 			// Pourchaque requiredItem itemData dans la liste requiredItems
+// 			//Si l'itemInContainer n'est pas  null et que son count est au dessus de zero
+// 			// used quantity est définie puis on ajoute une nouvelle ingérdient info
+//             int usedQuantity = Math.Min(itemInContainer.count, 1); // Utilisez au maximum 1 unité de cet élément
+//             usedIngredients.Add(new IngredientInfo
+//             {
+//                 ingredient = requiredItem,
+//                 usedQuantity = usedQuantity
+//             });
+//         }
+//         else
+//         {
+//             usedIngredients.Clear();
+//             return false; // L'ingrédient requis n'est pas disponible
+//         }
+//     }
+
+//     return true; // Tous les ingrédients requis sont disponibles
+// }
+
+// void SearchForRecipesInInventory()
+// {
+//     foreach (RecipeData recipe in recipeData)
+//     {
+//         if (AreRequiredItemsAvailable(recipe.requiredItems, out List<IngredientInfo> usedIngredients))
+//         {
+//             // Ajoutez les ingrédients utilisés à la liste de usedIngredients dans la recette
+//             recipe.usedIngredients.AddRange(usedIngredients);
+
+//             // Effectuez l'action de craft ici (par exemple, affichez un message)
+//             Debug.Log("Crafted: 1 " + recipe.craftableItem.itemName);
+//         }
+//     }
+// }
+
+// public Dictionary<ItemData, int> GetTotalUsedIngredients()
+// {
+//     Dictionary<ItemData, int> totalUsedIngredients = new Dictionary<ItemData, int>();
+
+//     foreach (RecipeData recipe in recipeData)
+//     {
+//         foreach (IngredientInfo ingredient in recipe.usedIngredients)
+//         {
+//             if (totalUsedIngredients.ContainsKey(ingredient.ingredient))
+//             {
+//                 totalUsedIngredients[ingredient.ingredient] += ingredient.usedQuantity;
+//             }
+//             else
+//             {
+//                 totalUsedIngredients[ingredient.ingredient] = ingredient.usedQuantity;
+//             }
+//         }
+//     }
+
+//     return totalUsedIngredients;
+// }
+
+// }
+// // 	void SearchForRecipesInInventory()
+// // {
+// //     int minCraftableQuantity = 0; // Déclarez la variable en dehors de la boucle
+
+// // 	float totalPercentage = 0.0f; // Déclarez la variable ici
+
+// //     foreach (RecipeData recipe in recipeData)
+// //     {
+// //         if (AreRequiredItemsAvailable(recipe.requiredItems))
+// //         {
+            
+
+// //             if (minCraftableQuantity > 0)
+// //             {
+// //                 // Supprimez les quantités requises d'ingrédients de l'inventaire
+// //                 foreach (ItemData requiredItem in recipe.requiredItems)
+// //                 {
+// //                     ItemInContainer[] matchingItems = content.Where(item => item.itemData == requiredItem).ToArray();
+// //                     foreach (ItemInContainer item in matchingItems)
+// //                     {
+// // 						// Pour chaque recipe dans RecipeData, si LesRequiredItems sont available et si la minCraftableQuantity est supérieur à zéro(?) 
+// // 						// Pour chaque ItemData requiredItem
+// // 						// créer un tableau avec les Items qui matchent dansItemInContainer item.count- mincraftablequantity
+// //                         item.count -= minCraftableQuantity;
+// //                     }
+// //                 }
+
+// //                 // Ajoutez le craftableItem avec le pourcentage calculé dans l'inventaire
+// //                 AddItem(recipe.craftableItem, minCraftableQuantity);
+
+// //                 // Effectuez l'action de craft ici (par exemple, affichez un message)
+// //                 Debug.Log("Crafted: " + minCraftableQuantity + " " + recipe.craftableItem.itemName + " with " + totalPercentage + "% composition");
+// //             }
+// //         }
+// //     }
+// // }
+
+
+using System.Collections.Generic;
+using System;
+using UnityEngine;
+using System.Linq;
+
+public class Inventory : MonoBehaviour
+{
+    [Header("References")]
+    [SerializeField]
+    private List<ItemInContainer> content = new List<ItemInContainer>();
+
+    public static Inventory instance;
+
+    public RecipeData[] recipeData;
+
+    [SerializeField]
+    private ContainerStats container;
+
+    [Header("Variables")]
+    const int InventorySize = 24;
+
+    public bool itemAdded = false;
+
+    private void Awake(){
+        instance = this;
+        container = GetComponent<ContainerStats>();
+    }
+
+    private void Start(){
+        SearchForRecipesInInventory();
+    }
+
+    void Update(){
+    }
+
+    public void AddItem(ItemData item, int quantity = 1){
+        // Chercher si l'élément existe déjà dans l'inventaire
+        ItemInContainer existingItem = content.Find(elem => elem.itemData == item);
+
+        if (existingItem != null && item.stackable){
+            // Si l'élément est stackable et existe déjà, augmenter la quantité
+            int spaceAvailable = container.maxQuantity - existingItem.count;
+            int quantityToAdd = Mathf.Min(quantity, spaceAvailable);
+            existingItem.count += quantityToAdd;
+            Debug.Log("Ajout de " + quantityToAdd + " " + item.itemName);
+        }
+        else{
+            // Sinon, ajouter un nouvel élément
+            if (content.Count < InventorySize){
+                content.Add(new ItemInContainer
+                {
+                    itemData = item,
+                    count = quantity
+                });
+                Debug.Log("Ajout de " + quantity + " " + item.itemName);
+            }
+            else{
+                Debug.Log("Inventaire plein. Impossible d'ajouter " + item.itemName);
+            }
+        }
+        SearchForRecipesInInventory();
+    }
+
+    public void RemoveItem(ItemData item, int quantity = 1){
+        ItemInContainer existingItem = content.Find(elem => elem.itemData == item);
+
+        if (existingItem != null){
+            existingItem.count -= quantity;
+
+            if (existingItem.count <= 0){
+                content.Remove(existingItem);
+            }
+
+            Debug.Log("Retrait de " + quantity + " " + item.itemName);
+        }
+
+        SearchForRecipesInInventory();
+    }
+
+    public List<ItemInContainer> GetContent(){
+        return content;
+    }
+
+    public void RefreshContent(){
+        // Ajoutez ici la logique pour actualiser le contenu
+    }
+
+    public bool IsFull(){
+        return content.Count >= InventorySize;
+    }
+
+    bool AreRequiredItemsAvailable(ItemData[] requiredItems, out List<IngredientInfo> usedIngredients){
+        usedIngredients = new List<IngredientInfo>();
+
+        foreach (ItemData requiredItem in requiredItems){
+            ItemInContainer itemInContainer = content.Find(elem => elem.itemData == requiredItem);
+            if (itemInContainer != null && itemInContainer.count > 0)
+            {
+			
+                int usedQuantity = itemInContainer.count;
+
+                usedIngredients.Add(new IngredientInfo{
+                    ingredient = requiredItem,
+                    usedQuantity = usedQuantity
+                });
+            }
+            else
+            {
+                usedIngredients.Clear();
+                return false;
+            }
+        }
+		
+        return true;
+    }
+
+    // void SearchForRecipesInInventory(){
+	// 	int minCraftableQuantity = 0; 
+
+    //     foreach (RecipeData recipe in recipeData){
+    //         if (AreRequiredItemsAvailable(recipe.requiredItems, out List<IngredientInfo> usedIngredients)){
+
+	// 			if (minCraftableQuantity > 0){
+
+    //             recipe.usedIngredients.AddRange(usedIngredients);
+	// 			AddItem(recipe.craftableItem, 1);
+    //             Debug.Log("Fabriqué : 1 " + recipe.craftableItem.itemName);
+				
+	// 			// Supprimez les quantités requises d'ingrédients de l'inventaire
+	// 			foreach (ItemData requiredItem in recipe.requiredItems){
+
+	// 				ItemInContainer[] matchingItems = content.Where(item => item.itemData == requiredItem).ToArray();
+
+	// 				foreach (ItemInContainer item in matchingItems){
+	// 					// Pour chaque recipe dans RecipeData, si LesRequiredItems sont available et si la minCraftableQuantity est supérieur à zéro(?) 
+
+	// 					int usedQuantity = 1;
+	// 					item.count -= usedQuantity;
+	// 					RemoveItem(recipe.requiredItems,usedQuantity);
+	// 					// Pour chaque ItemData requiredItem
+	// 					// créer un tableau avec les Items qui matchent dansItemInContainer item.count- mincraftablequantity
+	// 					// item.count -= minCraftableQuantity;
+	// 				}
+	// 			}            
+	// 		}
+	// 		}
+	// 		else{
+	// 			Debug.Log("RIRioareriop");
+	// 		}	
+    //     }
+    // }
+	
+	void SearchForRecipesInInventory()
+	{
+		foreach (RecipeData recipe in recipeData)
+		{
+			if (AreRequiredItemsAvailable(recipe.requiredItems, out List<IngredientInfo> usedIngredients))
+			{
+				int minCraftableQuantity = int.MaxValue;
+
+				// Trouver la quantité minimale pouvant être fabriquée en fonction des ingrédients disponibles
+				foreach (IngredientInfo ingredient in usedIngredients)
+				{
+					ItemInContainer itemInContainer = content.Find(elem => elem.itemData == ingredient.ingredient);
+					if (itemInContainer != null)
+					{
+						int maxCraftableQuantity = itemInContainer.count / ingredient.usedQuantity;
+						minCraftableQuantity = Mathf.Min(minCraftableQuantity, maxCraftableQuantity);
+					}
+				}
+
+				if (minCraftableQuantity > 0)
+				{
+					// Fabriquez le nombre approprié d'éléments et retirez les ingrédients de l'inventaire
+					foreach (IngredientInfo ingredient in usedIngredients)
+					{
+						int quantityToRemove = minCraftableQuantity * ingredient.usedQuantity;
+						ItemData requiredItem = ingredient.ingredient;
+						RemoveItem(requiredItem, quantityToRemove);
+					}
+
+					// Ajoutez les éléments fabriqués au container
+					AddItem(recipe.craftableItem, minCraftableQuantity);
+					Debug.Log("Fabriqué : " + minCraftableQuantity + " " + recipe.craftableItem.itemName);
+				}
+			}
+		}
+	}
+	[SerializeField]
+	public Dictionary<ItemData, int> GetTotalUsedIngredients()
+	{
+		Dictionary<ItemData, int> totalUsedIngredients = new Dictionary<ItemData, int>();
+
+		foreach (RecipeData recipe in recipeData)
+		{
+			foreach (IngredientInfo ingredient in recipe.usedIngredients)
+			{
+				if (totalUsedIngredients.ContainsKey(ingredient.ingredient))
+				{
+					totalUsedIngredients[ingredient.ingredient] += ingredient.usedQuantity;
+				}
+				else
+				{
+					totalUsedIngredients[ingredient.ingredient] = ingredient.usedQuantity;
+				}
+			}
+		}
+
+		return totalUsedIngredients;
+	}
+}
+
+[System.Serializable]
+public class ItemInContainer{
+	public ItemData itemData;
+	public int count;
+	 public float percentage;
+
+	 public float totalPurity;
+
+}
+
+
+
+//legACY Inventory
+// using System.Collections.Generic;
+// using System;
+// using UnityEngine;
+// using System.Linq;
+// using UnityEditor.Build.Content;
+
+// public class Inventory : MonoBehaviour
+// {
+//     [Header("References")]
+//     [SerializeField]
+//     private List<ItemInContainer> content = new List<ItemInContainer>();
+
+//     [SerializeField]
+//     private List<ItemInInventory> inventoryContent = new List<ItemInInventory>();
+
+
+//     public static Inventory instance;
+
+//     public RecipeData[] recipeData;
+
+//     public RecipeData currentRecipe;
+//     public ItemData[] itemUsed;
+
+//     [SerializeField]
+//     private ContainerStats container;
+
+//     [SerializeField]
+// 	private Transform inventorySlotsParent;	
+
+//     public Sprite emptySlotVisual;
+
+//     [Header("Variables")]
+//     const int InventorySize = 24;
+
+//     public bool itemAdded = false;
+
+//     private void Awake(){
+//         instance = this;
+//         container = GetComponent<ContainerStats>();
+//         // content = new List<ItemInContainer>();
+//     }
+
+//     private void Start(){
+//         SearchForRecipesInInventory();
+//     }
+
+//     void Update(){
+//     }
+
+//     // public void AddItem(ItemData item, int quantity){
+//     //     // Chercher si l'élément existe déjà dans l'inventaire
+//     //     ItemInContainer existingItem = content.Find(elem => elem.itemData == item);	
+        
+        
+        
+//     //     bool itemAdded = false;
+
+//     //     if (existingItem != null && item.stackable){
+            
+//     //         if(existingItem.count <= container.convItemQuantity){}
+//     //         // Si l'élément est stackable et existe déjà, augmenter la quantité
+//     //         // int spaceAvailable = container.maxQuantity - existingItem.count;
+//     //         // int quantityToAdd = Mathf.Min(quantity, container.currentQuantity);
+            
+
+//     //         existingItem.count = container.convItemQuantity;
+//     //         // itemInInventory[i].count++;
+            
+//     //         Debug.Log("Ajout de " + container.convItemQuantity + " " + item.itemName);
+//     //     }
+//     //         // Sinon, ajouter un nouvel élément
+//     //      if (content.Count < item.maxStack && content.Count < 24){
+//     //             content.Add(new ItemInContainer
+//     //             {
+//     //                 itemData = item,
+//     //                 count = 1
+                    
+//     //             });
+//     //             Debug.Log("Ajout de " + quantity + " " + item.itemName);
+//     //             itemAdded = true;
+                
+//     //        }
+        
+//     //     // if(!itemAdded){
+//     //     //                     //
+//     //     //     content.Add(
+//     //     //         new ItemInContainer
+//     //     //             {
+//     //     //                 itemData = item,
+//     //     //                 count = 1
+//     //     //             }
+//     //     //             );
+//     //     // }
+                    
+//     //     //             //
+//     //     //         else // sinon...
+//     //     //             {
+//     //     //                 // l'ajouter...
+//     //     //                 content.Add(
+//     //     //                                 new ItemInContainer
+//     //     //                             {
+//     //     //                                     itemData = item,
+//     //     //                                 count = 1
+//     //     //                             }
+//     //     //                             );
+//     //     //             }
+                    
+//     //     SearchForRecipesInInventory();
+//     //     RefreshContent();
+//     // }
+
+//     	public void AddItem(ItemData item)
+// 		{
+// 				// récupère la liste content
+// 				// Where(elem => elem.itemData == item) est une méthode de filtrage de la liste content qui permet de sélectionner les éléments qui satisfont une condition donnée
+// 				//Dans ce cas, la condition est elem.itemData == item, ce qui signifie que nous recherchons les éléments dont la propriété itemData est égale à l'objet item passé en paramètre.
+// 				// En d'autres termes, cette expression lambda compare la propriété itemData de chaque élément de la liste avec l'objet item. Si l'élément a la même valeur pour sa propriété itemData que l'objet item, il est considéré comme une correspondance et sera inclus dans le résultat filtré.
+// 				// ToArray() convertit le résultat de la méthode Where en un tableau (Array) d'objets de type ItemInInventory.
+// 				// ItemInInventory[] itemInInventory est la variable qui stocke le tableau résultant.
+// 				//ItemInInventory[] itemInInventory déclare une variable nommée itemInInventory qui est de type tableau ([]) d'objets de type ItemInInventory. Cela signifie que itemInInventory peut stocker plusieurs éléments de type ItemInInventory.
+// 				// Ainsi, la méthode Where retournera un tableau (ou une liste) contenant les éléments de content qui satisfont la condition elem.itemData == item. Cela signifie que seuls les éléments dont la propriété itemData est égale à celle de l'objet item seront inclus dans le tableau résultant.
+// 				ItemInContainer[] itemInContainer = content.Where(elem => elem.itemData == item).ToArray();	// requete Linq qui sera stocké dans inventory si trouvé sinon null
+				
+// 				// Remet a false lorsque cela s'amorce
+// 				bool itemAdded = false;
+
+// 				// Code pour le Stack
+// 				// Length est utilisée pour obtenir le nombre d'éléments dans le tableau itemInInventory., signifie qu'on ajoute au stack s'il y en a au moins 1 quand l'actin s'effectue
+// 				if(itemInContainer.Length > 0 && item.stackable)
+// 				{
+// 					// la boucle s'effectue a i = 0 et s'execute tant que i est inférieur a ItemInInventory.Length,, on incrémente +1 i
+// 					// Initialise une boucle dans les cas où i < itemInInventory.Length qui ajoute i++
+// 					for (int i = 0; i < itemInContainer.Length; i++)
+// 					{
+// 						// Si le compte de i est inférieur au MaxStack
+// 						// SI l'objet est encore stackable, sinon on passe a la suite
+// 						if (itemInContainer[i].count < item.maxStack)
+// 						{
+// 							// On ajoute l'item du count à l'item i et on le signale avec itemAdded
+// 							itemAdded = true;
+// 							itemInContainer[i].count = container.convItemQuantity;
+// 							// Retour a la ligne de code qui suit
+// 							break;
+// 						}
+// 					}
+// 					// Si l'Item n'est pas déjà added
+// 					if(!itemAdded)
+// 					{
+// 						//
+// 						content.Add(
+// 									new ItemInContainer
+// 									{
+// 										itemData = item,
+// 										count = 1
+// 									}
+// 								);
+// 					}
+// 				}
+// 				//
+// 			else // sinon...
+// 				{
+// 					// l'ajouter...
+// 					content.Add(
+// 									new ItemInContainer
+// 								{
+// 									itemData = item,
+// 									count = 1
+// 								}
+// 								);
+// 				}
+				
+// 				RefreshContent(); // Refresh pour faire apparaitre les Sprites
+// 		}
+
+
+//     public void RemoveItem(ItemData item, int quantity = 1){
+//         ItemInContainer existingItem = content.Find(elem => elem.itemData == item);
+
+//         if (existingItem != null){
+//             existingItem.count -= quantity;
+
+//             if (existingItem.count <= 0){
+//                 content.Remove(existingItem);
+//             }
+//             Debug.Log("Retrait de " + quantity + " " + item.itemName);
+//         }
+
+//         SearchForRecipesInInventory();
+//         RefreshContent();
+//     }
+
+//     public List<ItemInContainer> GetContent(){
+//         return content;
+//     }
+//     //    public List<ItemInInventory> GetContent(){
+//     //     return inventoryContent;
+//     // }
+
+// public void RefreshContent(){
+// 		// On vide tous les slots / Visuels non utilisés
+//             // if (content.Count > 0) {
+//             // Debug.LogError("content is null in RefreshContent");
+//             // return;
+//             // }
+//             // if (content != null && content.Count > 0){
+//             // if (content.Count > 20){
+//             // Debug.LogError("content plu de 20 sa mer");
+//             // return;
+//             // }
+            
+// 		for (int i = 0; i < content.Count  && i < inventorySlotsParent.childCount; i++){
+//             Debug.Log(" i est plus petit que inventorySlotParentchild count alors i++");
+
+//             ItemInContainer currentItem = content[i];
+//             // ItemInContainer itemInContainer = content.Find(elem => elem.itemData == item);
+
+// 			Slot currentSlot = inventorySlotsParent.GetChild(i).GetComponent<Slot>();
+
+// 			currentSlot.item = null;
+// 			// Récuperer le visual de l'item donné
+
+// 			currentSlot.itemVisual.sprite = emptySlotVisual;
+// 			currentSlot.countText.enabled = false;
+//             currentSlot.item = currentItem.itemData;
+
+// 		}
+			
+// 				// On peuple le visuel des slots selon le contenu réel de l'inventaire
+// 		for (int i = 0; i < content.Count; i++){
+//             Debug.Log(" i est plus petit que le count du content donc lets go ajouter");
+
+// 			ItemInContainer currentItem = content[i];
+//             // ItemInContainer itemInContainer = content.Find(elem => elem.itemData == item);
+            
+//             // ItemInContainer itemInContainer = content.Find(elem => elem.itemData == ingredient.ingredient);
+
+//             Slot currentSlot = inventorySlotsParent.GetChild(i).GetComponent<Slot>();
+			
+// 			currentSlot.item = currentItem.itemData;
+// 			// Récuperer le visual de l'item donné
+// 			currentSlot.itemVisual.sprite = currentItem.itemData.inventoryVisual;
+					
+//             if (currentSlot.item.stackable){
+//                 Debug.Log("L'item dans le slot est stackable");
+//                 currentSlot.countText.enabled = true;
+//                 currentSlot.countText.text = currentItem.count.ToString();
+//             }
+					
+// 		}
+// 				// equipment.UpdateEquipmentDesequipButton();
+// 				// craftingSystem.UpdateDisplayedRecipes();
+    
+// }
+
+//     public bool IsFull(){
+//         return content.Count >= InventorySize;
+//     }
+
+//     bool AreRequiredItemsAvailable(ItemData[] requiredItems, out List<IngredientInfo> usedIngredients){
+//         usedIngredients = new List<IngredientInfo>();
+
+//         foreach (ItemData requiredItem in requiredItems){
+//             ItemInContainer itemInContainer = content.Find(elem => elem.itemData == requiredItem);
+//             if (itemInContainer != null && itemInContainer.count > 0){
+			
+//                 int usedQuantity = itemInContainer.count;
+
+//                 usedIngredients.Add(new IngredientInfo{
+//                     ingredient = requiredItem,
+//                     usedQuantity = usedQuantity
+                    
+//                 });
+//             }
+//             else{
+//                 // usedIngredients.Clear();
+//                 return false;
+//             }
+//         }
+		
+//         return true;
+//     }
+	
+// 	void SearchForRecipesInInventory(){
+// 		foreach (RecipeData recipe in recipeData){
+// 			if (AreRequiredItemsAvailable(recipe.requiredItems, out List<IngredientInfo> usedIngredients)){
+// 				int minCraftableQuantity = int.MaxValue;
+
+// 				// Trouver la quantité minimale pouvant être fabriquée en fonction des ingrédients disponibles
+// 				foreach (IngredientInfo ingredient in usedIngredients){
+// 					ItemInContainer itemInContainer = content.Find(elem => elem.itemData == ingredient.ingredient);
+// 					if (itemInContainer != null){
+// 						int maxCraftableQuantity = itemInContainer.count / ingredient.usedQuantity;
+// 						minCraftableQuantity = Mathf.Min(minCraftableQuantity, maxCraftableQuantity);
+// 					}
+// 				}
+
+// 				if (minCraftableQuantity > 0){
+// 					// Fabriquez le nombre approprié d'éléments et retirez les ingrédients de l'inventaire
+// 					foreach (IngredientInfo ingredient in usedIngredients){
+// 						int quantityToRemove = minCraftableQuantity * ingredient.usedQuantity;
+// 						ItemData requiredItem = ingredient.ingredient;
+//                         //MEGA SUPER IMPORTAnt DE LA VRAI VIE
+//                         //Removeitem ici est bien appelé a chaque fois qu'un produit est utilisé,, il faut que ça reste qque part d'autre, genre une liste pour chaque item ?
+//                         // Créer une instance invisible pour sauvegarder les données ou juste accedé depuis un script externe pour afficher tooltip
+// 						RemoveItem(requiredItem, quantityToRemove);
+// 					}
+// 					// Ajoutez les éléments fabriqués au container
+// 					AddItem(recipe.craftableItem);
+//                     // Créer une instance de chaque craftableItem ?
+// 					Debug.Log("Fabriqué : " + minCraftableQuantity + " " + recipe.craftableItem.itemName);
+// 				}
+// 			}
+// 		}
+// 	}
+
+//     // public void Mix()
+//     // {
+//     //     // Assurez-vous que la recette actuelle est définie (vous n'avez pas montré comment elle est définie).
+//     //     if (currentRecipe == null)
+//     //     {
+//     //         Debug.LogError("Aucune recette définie.");
+//     //         return;
+//     //     }
+//     //     foreach (RecipeData recipe in recipeDataa)
+//     //     {
+//     //         // Parcourez les articles requis dans la recette.
+//     //         foreach (ItemInContainer requiredItem in currentRecipe.requiredItems)
+//     //     {
+//     //         ItemData requiredItemData = requiredItem.itemData;
+
+//     //         // Recherchez les articles correspondants dans l'inventaire.
+//     //         ItemInContainer[] itemsInContainer = instance.GetContent().Where(item => item.itemData == requiredItemData).ToArray();
+
+//     //         int totalRequiredItemQuantityInInventory = 0;
+
+//     //         foreach (ItemInContainer itemInContainer in itemsInContainer)
+//     //         {
+//     //             totalRequiredItemQuantityInInventory += itemInContainer.count;
+//     //         }
+
+//     //         // Vérifiez si vous avez suffisamment d'articles pour fabriquer la recette.
+//     //         if (totalRequiredItemQuantityInInventory >= requiredItem.count)
+//     //         {
+//     //             // Supprimez les articles requis de l'inventaire.
+//     //             for (int i = 0; i < requiredItem.count; i++)
+//     //             {
+//     //                 instance.RemoveItem(requiredItemData);
+//     //             }
+
+//     //             // Ajoutez l'article fabriqué à l'inventaire.
+//     //             instance.AddItem(currentRecipe.craftableItem);
+
+//     //             // Affichez un message de réussite.
+//     //             Debug.Log("Objet fabriqué");
+//     //         }
+//     //         else
+//     //         {
+//     //             // Affichez un message d'erreur si vous n'avez pas suffisamment d'articles.
+//     //             Debug.LogWarning("Vous n'avez pas suffisamment d'articles pour fabriquer la recette.");
+//     //         }
+//     //     }
+//     //     }
+//     // }
+
+// 	[SerializeField]
+// 	public Dictionary<ItemData, int> GetTotalUsedIngredients(){
+// 		Dictionary<ItemData, int> totalUsedIngredients = new Dictionary<ItemData, int>();
+
+// 		foreach (RecipeData recipe in recipeData){
+// 			foreach (IngredientInfo ingredient in recipe.usedIngredients){
+// 				if (totalUsedIngredients.ContainsKey(ingredient.ingredient)){
+// 					totalUsedIngredients[ingredient.ingredient] += ingredient.usedQuantity;
+//                 }
+// 				else{
+// 					totalUsedIngredients[ingredient.ingredient] = ingredient.usedQuantity;
+// 				}
+// 			}
+// 		}
+
+// 		return totalUsedIngredients;
+// 	}
+// }
+
+// [System.Serializable]
+// public class ItemInContainer{
+// 	public ItemData itemData;
+// 	public int count;
+// 	 public float percentage;
+
+// 	 public float totalPurity;
+
+// }
+
+// [System.Serializable]
+// public class ItemInInventory
+// {
+// 	public ItemData itemData;
+// 	public int count;
+// }

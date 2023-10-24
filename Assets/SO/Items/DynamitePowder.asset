@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 567b7a2a3d33f6648bdc97b22bb9f0de, type: 3}
+  m_Name: DynamitePowder
+  m_EditorClassIdentifier: 
+  itemName: Dynamite Powder
+  description: Dynamite Powder
+  inventoryVisual: {fileID: 0}
+  gameVisual: {fileID: 0}
+  stackable: 1
+  maxStack: 100
+  sellingPrice: 100
+  currentQuantity: 0
+  maxQuantity: 100
+  liquid: 1
