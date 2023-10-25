@@ -7,42 +7,25 @@ using UnityEngine;
 public class ButtonNav : MonoBehaviour{
 
     public GameObject navCanvas;
-
     public GameObject mainCanvas;
-
     public GameObject storePanel;
-
-    
     public GameObject navButtonDown;
-
     public GameObject navButtonUp;
-
     public GameObject sleepButton;
-
     public GameObject City2Destroyed;
     public GameObject City2;
-
     public GameObject navDynamite;
-
     [SerializeField]
     private TimeManager timeManager;
-
     [SerializeField]
     ThermometerTemp thermometerTemp;
-
     [SerializeField]
     private ParticleSystem[] particleSystems;
-
     public List<ItemData> possibleItems;
-
     [SerializeField]
-
     private StoreInventory storeInventory;
-
     [SerializeField]
     private PlayerInventory playerInventory;
-
-
     public bool isExploded = true;
     public bool isShopOpened = false;
 
@@ -61,22 +44,23 @@ public class ButtonNav : MonoBehaviour{
         
     }
     public void OnClickNavButtonDown(){
+
         if(!isShopOpened)
         {
-        mainCanvas.SetActive(true);
-        navCanvas.SetActive(false);
-        navButtonDown.SetActive(false);
-        navButtonUp.SetActive (true);
+            mainCanvas.SetActive(true);
+            navCanvas.SetActive(false);
+            navButtonDown.SetActive(false);
+            navButtonUp.SetActive (true);
         }
 
         if(isShopOpened)
         {
-        mainCanvas.SetActive(false);
-        navCanvas.SetActive(true);
-        isShopOpened = false;
-        navButtonDown.SetActive(true);
-        navButtonUp.SetActive(false);
-        storePanel.SetActive(false);
+            mainCanvas.SetActive(false);
+            navCanvas.SetActive(true);
+            isShopOpened = false;
+            navButtonDown.SetActive(true);
+            navButtonUp.SetActive(false);
+            storePanel.SetActive(false);
         }
     }
 
@@ -107,7 +91,6 @@ public class ButtonNav : MonoBehaviour{
     }
 
     public void OnTreesClick(){
-
         GatherWood();
     }
 
@@ -122,8 +105,12 @@ public class ButtonNav : MonoBehaviour{
             }
     }
 
+    public void OnLakeClick(){
+        GatherWater();
+    }
+
     public void GatherWater(){
-        int amount = UnityEngine.Random.Range(3, 6);
+        int amount = UnityEngine.Random.Range(1, 2);
         
         ItemData waterItem = possibleItems.Find(item => item.itemName == "Water");
 

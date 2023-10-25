@@ -7,7 +7,6 @@ public class Draggable : MonoBehaviour
     public Vector2 offset;
     public Vector2 initialPosition;
     public bool isUsed = false;
-
     public bool isClicked = false;
 
     private IEnumerator StartDragCoroutine()
@@ -28,8 +27,8 @@ public class Draggable : MonoBehaviour
         if (!isDragging && (Vector2)transform.position == initialPosition)
         {
             isUsed = !isUsed;
-            
         }
+
         isClicked = false;
         isDragging = false;
     }
