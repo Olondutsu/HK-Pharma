@@ -22,7 +22,7 @@ For optimization matter, there is just the Assets File so you have to follow nex
 
 - Make Item In Slot draggable + OnMouseExit Inventory = Replace Sprite + Add Draggable & ItemStats Scripts + Store Interactions
 
--<Strike> Add heating and freezing logic for each container according to currentTemperature (+ Home insulation ??)</Strike>
+- <Strike> Add heating and freezing logic for each container according to currentTemperature (+ Home insulation ??)</Strike>
 
 - DO A BETTER PARTICLE SYSTEM BECAUSE WE WANT IT FANCY BRO ( Soft Body or Particles or Sprite w/ RigidBody + Collider (??)
 
