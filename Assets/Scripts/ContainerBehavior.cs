@@ -7,14 +7,18 @@ public class ContainerBehavior : MonoBehaviour
 {
     [SerializeField]
     private GameObject putWoodButton;
+
     [SerializeField]
     private GameObject putIceButton;
 
     [SerializeField]
     private GameObject putSaltButton;
+
     public PlayerInventory playerInventory;
+
     [SerializeField]
     ThermometerTemp thermometerTemp;
+
     [SerializeField]
     private Transform parentTransform;
 
@@ -64,16 +68,22 @@ public class ContainerBehavior : MonoBehaviour
         }
 
         if(isFreezing){
+
             if(saltAdded){
+
                 minTemp = -15.0f;
             }
+
             if(containerTemp > minTemp){
+
                 containerTemp -= freezingRate * Time.deltaTime;
             }
         }
         
         if(isHeating){
+
             if(containerTemp < maxTemp){
+
                 containerTemp += heatingRate * Time.deltaTime;
             }
         }
@@ -95,66 +105,78 @@ public class ContainerBehavior : MonoBehaviour
         Debug.Log("Temp is Lowering");
     }
 
-    // public void HeatingContainer(){
-    //     containerTemp += heatingRate * Time.deltaTime;
-        
-    //     if(isHeating)
-    //     {
-    //         containerTemp += heatingRate * Time.deltaTime;
-    //     }
-    // }
-    // public void FreezingContainer(){
-    //     containerTemp -= freezingRate * Time.deltaTime;
-
-    //     if(isFreezing)
-    //     {
-    //         containerTemp -= freezingRate * Time.deltaTime;
-    //     }
-    // }
-
-
     public void OnClickWoodButton(){
-            AddWood();
+            
+            var woodItem = playerInventory.content.Find(item => item.itemData.itemName == "Wood");
+                if (woodItem != null)
+                {
+                    AddWood();
+                    playerInventory.RemoveItem(woodItem.itemData); // Passer l'ItemData au lieu de l'ItemInPlayerInventory
+                }
+                else{
+                    Debug.Log("Je bug salement");
+                }
+
     }
 
     public void OnClickIceButton(){
+        putIceButton.transform.position = parentTransform.position + new Vector3(2.0f, 0.0f, 0.0f);
+        var iceItem = playerInventory.content.Find(item => item.itemData.itemName == "Ice");
+        if (iceItem != null)
+        {
+            playerInventory.RemoveItem(iceItem.itemData); // Passer l'ItemData au lieu de l'ItemInPlayerInventory
             AddIce();
+        }
+        
     }
 
     public void OnClickSaltButton(){
-        saltAdded = true;
+        var saltItem = playerInventory.content.Find(item => item.itemData.itemName == "Salt");
+        if (saltItem != null)
+        {
+            playerInventory.RemoveItem(saltItem.itemData); // Passer l'ItemData au lieu de l'ItemInPlayerInventory
+            saltAdded = true;
+            
+        }
+        
     }
 
     public void DisplayButtons(UnityEngine.Vector3 contPosition){
 
         parentTransform.position = contPosition;
 
-        if (playerInventory.content.Exists(item => item.itemData.itemName == "Ice")){
-                putIceButton.SetActive(true);
-                
-                putIceButton.transform.position = parentTransform.position + new Vector3(2.0f, 0.0f, 0.0f);
-        }
-        else{
-            putIceButton.SetActive(false);
-        }
-        
         if (playerInventory.content.Exists(item => item.itemData.itemName == "Salt") && iceAdded ){
 
                 putSaltButton.SetActive(true);
-                
-                putSaltButton.transform.position = parentTransform.position + new Vector3(2.0f, 0.0f, 0.0f);
+        
+                putSaltButton.transform.position = parentTransform.position + new Vector3(3.0f, 0.0f, 0.0f);
+        
         }
         else{
+
             putSaltButton.SetActive(false);
         }
 
-        if (playerInventory.content.Exists(item => item.itemData.itemName == "Wood")){
+        if (playerInventory.content.Exists(item => item.itemData.itemName == "Ice" && !isHeating)){
+
+                putIceButton.SetActive(true);
+                
+        }
+        else{
+
+            putIceButton.SetActive(false);
+        }
+
+        if (playerInventory.content.Exists(item => item.itemData.itemName == "Wood" && !iceAdded)){
             
                 putWoodButton.SetActive(true);
 
                 putWoodButton.transform.position = parentTransform.position + new Vector3(1.0f, 0.0f, 0.0f);
+                
+
         }
         else{
+
             putWoodButton.SetActive(false);
         }
     }
