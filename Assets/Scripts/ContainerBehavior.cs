@@ -27,7 +27,7 @@ public class ContainerBehavior : MonoBehaviour
     public float targetTemperature;
     
     private bool saltAdded = false;
-    private bool iceAdded = false;
+    public bool iceAdded = false;
     private bool isHeating = false;
     private bool isFreezing = false;
     private float freezingRate = 0.0f;
@@ -106,7 +106,7 @@ public class ContainerBehavior : MonoBehaviour
     }
 
     public void OnClickWoodButton(){
-            
+
             var woodItem = playerInventory.content.Find(item => item.itemData.itemName == "Wood");
                 if (woodItem != null)
                 {
@@ -116,7 +116,6 @@ public class ContainerBehavior : MonoBehaviour
                 else{
                     Debug.Log("Je bug salement");
                 }
-
     }
 
     public void OnClickIceButton(){

@@ -19,7 +19,7 @@ public class PlayerInventory : MonoBehaviour
 		public ItemData[] itemUsed;
 
 		[SerializeField]
-		private Transform inventorySlotsParent;	
+		public Transform inventorySlotsParent;	
 
 		public Sprite emptySlotVisual;
 
@@ -101,6 +101,29 @@ public class PlayerInventory : MonoBehaviour
 		RefreshContent();
 	}
 
+	// //Added by Slot
+	// private void ReorganizeItems()
+	// {
+	// 	// Récupérez la liste des objets de l'inventaire
+	// 	List<ItemInPlayerInventory> items = PlayerInventory.instance.GetContent();
+
+	// 	// Parcourez les emplacements de l'inventaire
+	// 	for (int i = 0; i < PlayerInventory.instance.inventorySlotsParent.childCount; i++)
+	// 	{
+	// 		Slot slot = PlayerInventory.instance.inventorySlotsParent.GetChild(i).GetComponent<Slot>();
+
+	// 		// Si l'emplacement est vide et qu'il y a des objets dans la liste des objets
+	// 		if (slot.GetItemInSlot() == null && items.Count > 0)
+	// 		{
+	// 			// Placez le premier objet de la liste des objets dans cet emplacement
+	// 			slot.SetItemInSlot(items[0]);
+	// 			items.RemoveAt(0); // Retirez l'objet de la liste des objets
+	// 		}
+	// 	}
+
+	// 	// Mettez à jour l'affichage de l'inventaire
+	// 	PlayerInventory.instance.RefreshContent();
+	// }
     public void RemoveItem(ItemData item, int quantity = 1)
 	{
 		

@@ -43,20 +43,20 @@ public class Slot : MonoBehaviour
         marketPlace.OnSellItem(item, transform.position);
     }
 
-    private void OnMouseDown(){
-        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        isDragging = true;
-    }
+    // private void OnMouseDown(){
+    //     offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //     isDragging = true;
+    // }
 
-    private void OnMouseDrag(){
-        if (isDragging){
-            Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-            transform.position = newPosition;
-        }
-    }
+    // private void OnMouseDrag(){
+    //     if (isDragging){
+    //         Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+    //         transform.position = newPosition;
+    //     }
+    // }
 
-    private void OnMouseUp(){
-        isDragging = false;
-    }
+    // private void OnMouseUp(){
+    //     isDragging = false;
+    // }
 
 }

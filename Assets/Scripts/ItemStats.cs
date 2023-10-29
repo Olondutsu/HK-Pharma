@@ -33,6 +33,8 @@ public class ItemStats : MonoBehaviour
 
     public GameObject raycastHitObject;
 
+    public ItemData itemData;
+
     [Header("Quantity")]
 
     public bool isPouring = false;
@@ -71,18 +73,17 @@ public class ItemStats : MonoBehaviour
                 if(!isEmpty){
 
                     isPouring = true;
-                    
-                    
+
                     // Cast a ray straight down.
                     RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, Mathf.Infinity, LayerMask.GetMask("Container"));
 
                     float poured =+ pouringRate * Time.deltaTime;
 
                     Debug.Log("poured"+ poured);
-    
+
                     WastedLiquid wastedLiq = wasted.GetComponent<WastedLiquid>();
                     wastedLiq.SetItemStats(this);
-                    
+
                     // If it hits something...
                     if (hit.collider != null){                    
                         if (hit.collider.GetComponent<ContainerStats>() != null)
@@ -97,7 +98,7 @@ public class ItemStats : MonoBehaviour
 
                             containerInventory.AddItem(currentItem.itemData);
 
-        
+
                             // if(!containerInventory.itemAdded){                         
                             //     containerInventory.AddItem(currentItem.itemData, container.convItemQuantity);
                             //     // containerInventory.itemAdded = true;
