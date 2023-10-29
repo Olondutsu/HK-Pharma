@@ -195,7 +195,7 @@ MonoBehaviour:
   currentQuantity: 0
   wasted: {fileID: 0}
   raycastHitObject: {fileID: 0}
-  itemData: {fileID: 0}
+  itemData: {fileID: 11400000, guid: 9317e051611f6a24a96dfcb27f1eba02, type: 2}
   isPouring: 0
   pouringRate: 10
   poured: 0

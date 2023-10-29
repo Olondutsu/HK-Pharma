@@ -59,12 +59,19 @@ public class ItemStats : MonoBehaviour
 
 
 
+
     void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
         currentQuantity = item.maxQuantity;
         draggable = GetComponent<Draggable>();
         instance = this;
+         GameObject gameManager = GameObject.Find("GameManager");
+
+        if (gameManager != null)
+        {
+            wasted = gameManager.GetComponent<WastedLiquid>();
+        }
     }
 
     void FixedUpdate(){
