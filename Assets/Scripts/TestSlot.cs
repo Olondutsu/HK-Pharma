@@ -539,6 +539,8 @@ public class TestSlot : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     private Vector3 pointerOffset;
     public GameObject itemPrefab;
 
+    public PrefabLibrary prefabLibrary;
+
     private void Awake()
     {
         itemVisual = GetComponentInChildren<Image>();
@@ -589,14 +591,25 @@ public class TestSlot : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             // Convertissez les coordonnées de l'écran en coordonnées du monde pour définir la position de l'objet
             Vector3 spawnWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            // Utilisez la méthode SpawnItem pour instancier l'objet à la position de la souris
-            SpawnItem(draggingItem.itemData, spawnWorldPosition);
+            // Obtenez l'ItemPrefab associé à l'item que vous faites glisser
+            GameObject itemPrefab = GetItemPrefab(draggingItem.itemData);
+
+            if (itemPrefab != null)
+            {
+                // Utilisez la méthode SpawnItem pour instancier l'objet à la position de la souris
+                SpawnItem(draggingItem.itemData, spawnWorldPosition, itemPrefab);
+            }
+            else
+            {
+                Debug.LogError("Aucun préfabriqué trouvé pour l'item : " + draggingItem.itemData.itemName);
+            }
 
             Destroy(itemVisual.gameObject);
         }
     }
 
-    private void SpawnItem(ItemData itemData, Vector3 spawnPosition)
+
+    private void SpawnItem(ItemData itemData, Vector3 spawnPosition, GameObject itemPrefab)
     {
          spawnPosition.z = 0.1f;
         // Créez un nouvel objet dans la scène à partir de la préfab
@@ -633,5 +646,20 @@ public class TestSlot : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         }
 
         return -1;
+    }
+    private GameObject GetItemPrefab(ItemData itemData)
+    {
+    if (prefabLibrary != null)
+    {
+        foreach (var libraryEntry in prefabLibrary.content)
+        {
+            if (libraryEntry.itemData == itemData)
+            {
+                return libraryEntry.itemPrefab;
+            }
+        }
+    }
+
+    return null;
     }
 }
