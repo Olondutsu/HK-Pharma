@@ -48,8 +48,8 @@ Post Release
 
 - Management features (Partisans / Press)
 
-AND THEN... >>>> DO A PLAYABLE DEMO, OPEN A PATREON, GET MONEY, PUT ON STEAM, GOES TO GUANTANAMO
 
 # CREDITS
 
-Thanks to History
+Thanks to History, credits to nobody, you had to be here !
+Credits to Mr.Leroux for Illustrations tho
