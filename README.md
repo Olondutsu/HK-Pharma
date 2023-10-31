@@ -46,6 +46,8 @@ Post Release
 
 - Repair the whole fucking mess
 
+- Management features (Partisans / Press)
+
 AND THEN... >>>> DO A PLAYABLE DEMO, OPEN A PATREON, GET MONEY, PUT ON STEAM, GOES TO GUANTANAMO
 
 # CREDITS
