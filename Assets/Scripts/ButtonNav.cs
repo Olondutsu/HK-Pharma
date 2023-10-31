@@ -80,14 +80,20 @@ public class ButtonNav : MonoBehaviour{
             ps.Emit(1);
         }
     }
-
+ 
     public void PostDynamite(){
-        if(isExploded){
-            navDynamite.SetActive(false);
-            City2Destroyed.SetActive(true);
-            City2.SetActive(false);
+
+        var dynamItem = playerInventory.content.Find(item => item.itemData.itemName == "Dynamite");
         
-        }  
+        if (dynamItem != null)
+        {
+            if(isExploded){
+                navDynamite.SetActive(false);
+                City2Destroyed.SetActive(true);
+                City2.SetActive(false);
+            
+            }  
+        }
     }
 
     public void OnTreesClick(){

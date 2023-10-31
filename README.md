@@ -20,25 +20,29 @@ For optimization matter, there is just the Assets File so you have to follow nex
 
 # WHAT'S NEXT ?
 
-- <Strike> Make Item In Slot draggable + OnMouseExit Inventory = Replace Sprite + Add Draggable & ItemStats Scripts </Strike> + Store Interactions (to jest w toku kurwa)
+Pre-Release 
 
-- <Strike> Add heating and freezing logic for each container according to currentTemperature (+ Home insulation ??)</Strike> 
-
-- DO A BETTER PARTICLE SYSTEM BECAUSE WE WANT IT FANCY BRO ( Soft Body or Particles or Sprite w/ RigidBody + Collider (??)
+- Draggable from Inventory to Store 
 
 - Create a new list in container that tell how much quantity of items are within (then make different recipe out of this for different quality of any products)
 
-- Add an event system and dialogue box for the main story, scenario, dialogues etc (to jest w toku kurwa)
+- Add an event system and dialogue box for the main story, scenario, dialogues etc
 
-- Add some global parameters as Global Tension, Wanted level and Partisans (to jest w toku)
+- Add some global parameters as Global Tension, Wanted level
 
 - Add complete recipes 
 
+- Add Save + Load
+
 - Scenario Writing
 
-- ArtWorks (+ Anim ?)
+- ArtWorks (+ Anim ?) Handled by Mr.Leroux
 
 - Add music + sound design
+
+Post Release
+
+- Find fancy particle system
 
 - Repair the whole fucking mess
 
