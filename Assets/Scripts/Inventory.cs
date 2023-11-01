@@ -88,7 +88,7 @@ public class Inventory : MonoBehaviour
 									new ItemInInventory
 									{
 										itemData = item,
-										count = quantity
+										count = 1
 									}
 								);
 					}
@@ -100,7 +100,7 @@ public class Inventory : MonoBehaviour
 									new ItemInInventory
 								{
 									itemData = item,
-									count = quantity
+									count = 1
 								}
 								);
 				}
@@ -199,7 +199,7 @@ public class Inventory : MonoBehaviour
 
             ItemInInventory itemInInventory = content.Find(elem => elem.itemData == requiredItem);
             if (itemInInventory != null){
-                craftedQuantity += itemInInventory.count;
+                craftedQuantity = itemInInventory.count;
             }
         }
 

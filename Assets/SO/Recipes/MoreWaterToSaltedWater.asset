@@ -16,3 +16,7 @@ MonoBehaviour:
   requiredItems:
   - {fileID: 11400000, guid: 7af447cfbbf289a48ab92b04263db6dc, type: 2}
   - {fileID: 11400000, guid: 08490190bb060434ab1b10a554f3f7d1, type: 2}
+  usedIngredients:
+  - ingredient: {fileID: 0}
+    usedQuantity: 0
+    idealQuantity: 0

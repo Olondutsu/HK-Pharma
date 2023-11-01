@@ -10,10 +10,11 @@ public class RecipeData : ScriptableObject
     public List<IngredientInfo> usedIngredients = new List<IngredientInfo>();
 }
 
+[System.Serializable]
 public class IngredientInfo
 {
     public ItemData ingredient;
 
     public int usedQuantity;
-    // public float purityPercentage;
+    public int idealQuantity;
 }

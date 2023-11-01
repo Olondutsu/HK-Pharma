@@ -22,6 +22,8 @@ For optimization matter, there is just the Assets File so you have to follow nex
 
 Pre-Release 
 
+- Add a Tooltip System
+
 - Draggable from Inventory to Store 
 
 - Create a new list in container that tell how much quantity of items are within (then make different recipe out of this for different quality of any products)
