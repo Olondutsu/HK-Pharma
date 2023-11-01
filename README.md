@@ -1,7 +1,6 @@
 <div align="center">
     <a href="https://github.com/Olondutsu/HK-PHARMA">
  	<img src="https://raw.githubusercontent.com/Olondutsu/HK-Pharma/main/SrcImg.png" alt="Humankind Pharmacy"/>
-        <img src=https://i.imgur.com/Gv4k0O7.jpeg" alt="HK-Pharma"/>
     </a>
 
 </div>
@@ -57,3 +56,5 @@ Post Release
 
 Thanks to History, credits to nobody, you had to be here !
 Credits to Mr.Leroux for Illustrations tho
+
+<img src=https://i.imgur.com/Gv4k0O7.jpeg" alt="HK-Pharma"/>
