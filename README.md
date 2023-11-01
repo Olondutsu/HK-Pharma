@@ -54,8 +54,8 @@ Post Release
 
 # CREDITS
 
-Thanks to History, credits to nobody, you had to be here !
-Credits to Mr.Leroux for Illustrations tho
+Thanks to nobody, you should have been here !
+Credits to Mr.Leroux for Illustrations tho.
 
 <div align="center">
     <a href="https://github.com/Olondutsu/HK-PHARMA">
