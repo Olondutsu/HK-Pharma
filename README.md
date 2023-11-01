@@ -1,6 +1,6 @@
 <div align="center">
     <a href="https://github.com/Olondutsu/HK-PHARMA">
-	<img src=https://github.com/Olondutsu/HK-Pharma/blob/main/SrcImg.png"alt="Humankind Pharmacy"/>
+ 	<img src="https://raw.githubusercontent.com/Olondutsu/HK-Pharma/main/SrcImg.png" alt="Humankind Pharmacy"/>
         <img src=https://i.imgur.com/Gv4k0O7.jpeg" alt="HK-Pharma"/>
     </a>
 
