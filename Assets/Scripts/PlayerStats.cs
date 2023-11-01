@@ -18,6 +18,11 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI moneyCountText;
 
+    public int currentTension;
+
+    [SerializeField]
+    private TextMeshProUGUI tensionCountText;
+
 
     void Awake()
     {
@@ -46,6 +51,23 @@ public class PlayerStats : MonoBehaviour
     public void DisplayMoney(){
         moneyCountText.text = currentMoney.ToString();
     }
+
+    public void RaiseTension(int tensionModifyer, bool overTime=false) 
+    {
+        currentTension += tensionModifyer ;
+        DisplayTension();
+    }
+
+        public void LowerTension(int tensionModifyer, bool overTime=false) 
+    {
+        currentTension -= tensionModifyer ;
+        DisplayTension();
+    }
+
+        public void DisplayTension(){
+        tensionCountText.text = currentTension.ToString();
+    }
+
     
     // public void ConsumeItem(float health, float hunger, float thirst)
     // {

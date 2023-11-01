@@ -219,6 +219,40 @@ public class Inventory : MonoBehaviour
             Debug.Log("Fabriqué : " + craftedQuantity + " " + recipe.craftableItem.itemName);
         }
     }
+//     private void CraftRecipe(RecipeData recipe)
+// {
+//     if (!CanCraftRecipe(recipe))
+//     {
+//         Debug.Log("Impossible de fabriquer la recette.");
+//         return;
+//     }
+
+//     float overallPercentage = 1.0f;
+
+//     foreach (IngredientInfo ingredientInfo in recipe.usedIngredients)
+//     {
+//         float ingredientPercentage = ingredientInfo.GetIngredientPercentage();
+
+//         if (ingredientPercentage < 1.0f)
+//         {
+//             Debug.Log("Ingrédient utilisé en dessous de l'idéal : " + ingredientInfo.ingredient.itemName);
+//             // Vous pouvez ajouter ici un comportement spécifique en fonction du pourcentage de chaque ingrédient.
+//         }
+
+//         overallPercentage = Mathf.Min(overallPercentage, ingredientPercentage);
+//     }
+
+//     if (overallPercentage >= 1.0f)
+//     {
+//         int craftedQuantity = 1; // Vous pouvez ajuster la quantité fabriquée en fonction du pourcentage global si nécessaire.
+//         AddItem(recipe.craftableItem, craftedQuantity);
+//         Debug.Log("Fabriqué : " + craftedQuantity + " " + recipe.craftableItem.itemName);
+//     }
+//     else
+//     {
+//         Debug.Log("Impossible de fabriquer la recette en raison de la faible utilisation des ingrédients.");
+//     }
+// }
 }
 
 [System.Serializable]

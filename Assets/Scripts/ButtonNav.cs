@@ -15,6 +15,13 @@ public class ButtonNav : MonoBehaviour{
     public GameObject City2Destroyed;
     public GameObject City2;
     public GameObject navDynamite;
+
+    public GameObject SaveButton;
+
+    public GameObject LoadButton;
+
+    public SaveManager saveManager;
+
     [SerializeField]
     private TimeManager timeManager;
     [SerializeField]
@@ -24,8 +31,12 @@ public class ButtonNav : MonoBehaviour{
     public List<ItemData> possibleItems;
     [SerializeField]
     private StoreInventory storeInventory;
+
     [SerializeField]
     private PlayerInventory playerInventory;
+
+    [SerializeField]
+    private PlayerStats playerStats;
     public bool isExploded = true;
     public bool isShopOpened = false;
 
@@ -41,6 +52,7 @@ public class ButtonNav : MonoBehaviour{
         storePanel.SetActive(false);
         navButtonUp.SetActive(false);
         navButtonDown.SetActive(true);
+        DisplayDynamiteButton();
         
     }
     public void OnClickNavButtonDown(){
@@ -73,30 +85,45 @@ public class ButtonNav : MonoBehaviour{
     }
     
     public void OnClickDynamite(){
+
         isExploded = true;
         PostDynamite();
+        var dynamItem = playerInventory.content.Find(item => item.itemData.itemName == "Dynamite");
+
+        playerInventory.RemoveItem(dynamItem.itemData);
+
         foreach (ParticleSystem ps in particleSystems)
         {
             ps.Emit(1);
         }
     }
+
+    public void DisplayDynamiteButton(){
+        var dynamItem = playerInventory.content.Find(item => item.itemData.itemName == "Dynamite");
+
+        if (dynamItem != null){
+
+            navDynamite.SetActive(true);
+        }
+        else{
+            navDynamite.SetActive(false);
+        }
+    }
  
     public void PostDynamite(){
 
-        var dynamItem = playerInventory.content.Find(item => item.itemData.itemName == "Dynamite");
-        
-        if (dynamItem != null)
-        {
-            if(isExploded){
-                navDynamite.SetActive(false);
-                City2Destroyed.SetActive(true);
-                City2.SetActive(false);
+        if(isExploded){
+
+            navDynamite.SetActive(false);
+            City2Destroyed.SetActive(true);
+            City2.SetActive(false);
+            playerStats.RaiseTension(50);
             
-            }  
-        }
+        }  
     }
 
     public void OnTreesClick(){
+
         GatherWood();
     }
 
@@ -134,5 +161,6 @@ public class ButtonNav : MonoBehaviour{
         storeInventory.RandomizeInventory();
         storeInventory.RefreshContent();
         playerInventory.RefreshContent();
+        playerStats.LowerTension(2);
     }
 }

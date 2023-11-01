@@ -17,4 +17,10 @@ public class IngredientInfo
 
     public int usedQuantity;
     public int idealQuantity;
+    public float GetIngredientPercentage()
+    {
+        if (idealQuantity == 0)
+            return 0.0f;
+        return (float)usedQuantity / idealQuantity;
+    }
 }
